@@ -1,7 +1,7 @@
-= GameParams.data unpack =
+# GameParams.data unpack
 Set of tools and classes that will help you in your work with GameParams.data of WorldOfWarships game.
 
-= Command-line usage =
+## Command-line usage
 usage: game_params.py [-h] --json [--by-id] [--type-filter TYPE_FILTER] FILE
 
 positional arguments:
@@ -15,7 +15,7 @@ optional arguments:
                         show only values of given type (see item.typeinfo.type
                         in json)
 
-= Module usage =
+## Module usage
 ```
 from GameParams import GameParams
 gp = GameParams()

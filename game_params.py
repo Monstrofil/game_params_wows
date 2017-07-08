@@ -18,11 +18,13 @@ if __name__ == '__main__':
                         help='show data as json')
     parser.add_argument('--by-id', action='store_true',
                         help='show data by id')
+    parser.add_argument('--type-filter', type=str,
+                        help='show only values of given type (see item.typeinfo.type in json)')
 
     namespace = parser.parse_args()
     if namespace.json:
         gp = GameParams()
         gp.load(namespace.file_path[0])
-        print(gp.get_json(namespace.by_id))
+        print(gp.get_json(namespace.by_id, namespace.type_filter))
     else:
         raise argparse.ArgumentTypeError('Use --json, other modes are not supported!')
