@@ -16,13 +16,13 @@ if __name__ == '__main__':
                         help='path to GameParams.data')
     parser.add_argument('--json', action='store_true', required=True,
                         help='show data as json')
-    parser.add_argument('--by_id', action='store_true',
+    parser.add_argument('--by-id', action='store_true',
                         help='show data by id')
 
     namespace = parser.parse_args()
     if namespace.json:
         gp = GameParams()
         gp.load(namespace.file_path[0])
-        print(gp.get_json())
+        print(gp.get_json(namespace.by_id))
     else:
         raise argparse.ArgumentTypeError('Use --json, other modes are not supported!')

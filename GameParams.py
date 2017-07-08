@@ -75,9 +75,10 @@ class GameParams(object):
 
         return self
 
-    def get_json(self):
+    def get_json(self, by_id):
         """
         Not an in-game method, but new one added;
+        :type by_id: bool
         :rtype: str 
         """
-        return json.dumps(self.data, cls=GameParamsJsonEncoder, ensure_ascii=False)
+        return json.dumps(self.dataById if by_id else self.data, cls=GameParamsJsonEncoder, ensure_ascii=False)
