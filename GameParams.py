@@ -66,8 +66,7 @@ class GameParams(object):
 
     def load(self, file_path='GameParams.data'):
         """
-        Save GameParams into GameParams.data file;
-        Client should be able to read such modified file;
+        Load data from GameParams.data file into current class-object;
         :rtype: GameParams 
         """
         self.data = GameParamsLoader(file_path).get_params()
