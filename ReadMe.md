@@ -2,6 +2,7 @@
 Set of tools and classes that will help you in your work with GameParams.data of WorldOfWarships game.
 
 ## Command-line usage
+```
 usage: game_params.py [-h] --json [--by-id] [--type-filter TYPE_FILTER] FILE
 
 positional arguments:
@@ -14,6 +15,7 @@ optional arguments:
   --type-filter TYPE_FILTER
                         show only values of given type (see item.typeinfo.type
                         in json)
+```
 
 ## Module usage
 ```
