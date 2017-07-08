@@ -75,10 +75,26 @@ class GameParams(object):
 
         return self
 
-    def get_json(self, by_id):
+    def __filter_items_by_type(self, by_id, type_filter):
+        """
+        Iter pairs key => velue in dict, but only with elements of given type;
+        Return all elements if type_filter is None;
+        :type by_id: bool
+        :type type_filter: str | None
+        :rtype: dict[any, GPData] 
+        """
+        data_items = self.dataById if by_id else self.data
+        for key, value in data_items.iteritems():
+            if type_filter is None or value.typeinfo.type == type_filter:
+                yield key, value
+
+    def get_json(self, by_id, type_filter):
         """
         Not an in-game method, but new one added;
         :type by_id: bool
+        :type type_filter: str | None
         :rtype: str 
         """
-        return json.dumps(self.dataById if by_id else self.data, cls=GameParamsJsonEncoder, ensure_ascii=False)
+        filtered_items = dict(self.__filter_items_by_type(by_id, type_filter))
+        return json.dumps(filtered_items, cls=GameParamsJsonEncoder, ensure_ascii=False,
+                          indent=2)  # , encoding='windows-1251')  # TODO: is it good to set ensure_ascii=False here?
