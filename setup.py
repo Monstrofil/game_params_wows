@@ -12,5 +12,5 @@ setup(name='GameParams.data helper for World of Warships',
       url='',
       packages=['game_params_util'],
       py_modules=['GameParams'],
-      scripts=['game_params_util/game_params.py'],
+      scripts=['game_params.py'],
       )
