@@ -13,4 +13,4 @@ class GameParamsJsonEncoder(JSONEncoder):
     """
 
     def default(self, o):
-        return o.__dict__
+        return getattr(o, '__dict__', str(o))
