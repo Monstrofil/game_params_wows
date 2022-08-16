@@ -60,17 +60,17 @@ class GameParams(object):
         """
         Save GameParams into GameParams.data file;
         Client should be able to read such modified file;
-        :rtype: None 
+        :rtype: None
         """
         GameParamsSaver(self).save(file_path)
 
     def load(self, file_path='GameParams.data'):
         """
         Load data from GameParams.data file into current class-object;
-        :rtype: GameParams 
+        :rtype: GameParams
         """
         self.data = GameParamsLoader(file_path).get_params()
-        self.dataById = {item.id: item for item in self.data.itervalues()}
+        self.dataById = {id: elem for (elem, id) in zip(self.data[0], self.data[1])}
 
         return self
 
@@ -80,19 +80,21 @@ class GameParams(object):
         Return all elements if type_filter is None;
         :type by_id: bool
         :type type_filter: str | None
-        :rtype: dict[any, GPData] 
+        :rtype: dict[any, GPData]
         """
-        data_items = self.dataById if by_id else self.data
-        for key, value in data_items.iteritems():
+        for key, value in self.dataById.items():
             if type_filter is None or value.typeinfo.type == type_filter:
-                yield key, value
+                if by_id:
+                    yield key, value
+                else:
+                    yield value, key
 
     def get_json(self, by_id, type_filter):
         """
         Not an in-game method, but new one added;
         :type by_id: bool
         :type type_filter: str | None
-        :rtype: str 
+        :rtype: str
         """
         filtered_items = dict(self.__filter_items_by_type(by_id, type_filter))
         return json.dumps(filtered_items, cls=GameParamsJsonEncoder, ensure_ascii=False,
