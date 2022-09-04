@@ -70,7 +70,7 @@ class GameParams(object):
         :rtype: GameParams
         """
         self.data = GameParamsLoader(file_path).get_params()
-        self.dataById = {id: elem for (elem, id) in zip(self.data[0], self.data[1])}
+        self.dataById = self.data[0] # {id: elem for (elem, id) in zip(self.data[0], self.data[1])}
 
         return self
 
@@ -83,6 +83,7 @@ class GameParams(object):
         :rtype: dict[any, GPData]
         """
         for key, value in self.dataById.items():
+            print(key, value)
             if type_filter is None or value.typeinfo.type == type_filter:
                 if by_id:
                     yield key, value
