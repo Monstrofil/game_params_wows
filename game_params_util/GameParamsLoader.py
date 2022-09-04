@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 import os
 import pickle
 import zlib
-from StringIO import StringIO
+from io import BytesIO
 
-from GameParamsExceptions import GameParamsLoaderDecompressError, GameParamsLoaderFileNotFound
+from .GameParamsExceptions import GameParamsLoaderDecompressError, GameParamsLoaderFileNotFound
 
 __author__ = "Aleksandr Shyshatsky"
 
@@ -33,7 +33,7 @@ class GameParamsLoader(object):
         """
         Data in GameParams.data is compressed using zlib;
         This method decompresses data and returns string;
-        :rtype: str 
+        :rtype: str
         """
         io = self.__load_data()
         try:
@@ -45,13 +45,13 @@ class GameParamsLoader(object):
         """
         Load GameParams.data and reverse it's content
         Reverse is needed for further decompress;
-        :rtype: StringIO 
+        :rtype: BytesIO
         """
         if not os.path.exists(self.__file_path):
             raise GameParamsLoaderFileNotFound(self.__file_path)
 
-        with open(self.__file_path, b'rb') as f:
-            io = StringIO()
+        with open(self.__file_path, 'rb') as f:
+            io = BytesIO()
             io.write(f.read()[::-1])
             io.seek(0)
         return io
